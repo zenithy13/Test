@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenithy | Shop & Services</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Mitr:wght=200;300;400;500&display=swap" rel="stylesheet">
+   
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        mitr: ['Mitr', 'sans-serif'],
+                    },
+                    colors: {
+                        astro: {
+                            dark: '#0a192f',
+                            purple: '#172a45',
+                            light: '#30bced',
+                            gold: '#38bdf8',
+                            goldDim: '#0284c7',
+                            text: '#e0f2fe'
+                        }
+                    },
+                    backgroundImage: {
+                        'night-sky': 'linear-gradient(180deg, #020617 0%, #0f172a 40%, #1e293b 80%, #334155 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #e0f2fe;
+            overflow-x: hidden;
+        }
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(14, 165, 233, 0.1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+       
+        .glass-panel:hover {
+            border-color: rgba(56, 189, 248, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(56, 189, 248, 0.15);
+        }
+        /* Star Animation */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(0.6) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+        }
+        .star {
+            position: absolute;
+            animation: twinkle infinite ease-in-out;
+            fill: #38bdf8;
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+        }
+        /* Shooting Star / Meteor Animation */
+        .meteor {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(56,189,248,1) 0%, rgba(56,189,248,0) 100%);
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            animation: meteor-shower 8s linear infinite;
+            opacity: 0;
+            filter: drop-shadow(0 0 4px #38bdf8);
+        }
+        .meteor::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            top: -1px;
+            left: 0;
+            box-shadow: 0 0 10px 2px #38bdf8;
+        }
+        @keyframes meteor-shower {
+            0% { transform: rotate(-45deg) translateX(-200px); opacity: 1; }
+            15% { transform: rotate(-45deg) translateX(400px); opacity: 0; }
+            100% { transform: rotate(-45deg) translateX(400px); opacity: 0; }
+        }
+        /* Magical Background Aura */
+        .magical-aura {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            opacity: 0.25;
+            animation: pulseAura 12s infinite alternate ease-in-out;
+        }
+        .aura-purple { background: #0369a1; width: 40vw; height: 40vw; top: 10%; left: -10vw; }
+        .aura-gold { background: #1e1b4b; width: 30vw; height: 30vw; top: 40%; right: -5vw; }
+        @keyframes pulseAura {
+            0% { transform: scale(0.9) translate(0, 0); opacity: 0.2; }
+            100% { transform: scale(1.2) translate(5%, 5%); opacity: 0.3; }
+        }
+        /* Cloud Animations */
+        @keyframes floatCloud {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-3%) translateY(2%); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+        .cloud-bg {
+            animation: floatCloud 25s infinite ease-in-out;
+        }
+        /* Gradient Text */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #38bdf8 0%, #bae6fd 50%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+        /* Divider */
+        .moon-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(56,189,248,0.6), transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+        .moon-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 8px;
+            height: 8px;
+            background: #38bdf8;
+            box-shadow: 0 0 10px #38bdf8;
+        }
+        /* SVG Glow Classes */
+        .svg-glow-pink { filter: drop-shadow(0 0 6px rgba(56,189,248,0.7)); }
+        .svg-glow-blue { filter: drop-shadow(0 0 6px rgba(14,165,233,0.7)); }
+        .svg-glow-yellow { filter: drop-shadow(0 0 6px rgba(56,189,248,0.7)); }
+    </style>
+</head>
+<body class="font-mitr antialiased relative min-h-screen flex flex-col items-center">
+    <div class="fixed inset-0 z-0 pointer-events-none bg-night-sky overflow-hidden">
+       
+        <div class="magical-aura aura-purple"></div>
+        <div class="magical-aura aura-gold" style="animation-delay: -5s;"></div>
+        <svg class="absolute top-10 right-[-15%] md:right-5 w-72 md:w-[450px] h-72 md:h-[450px] opacity-[0.15]" viewBox="0 0 100 100">
+            <path d="M50 0 A 50 50 0 1 1 0 50 A 40 40 0 1 0 50 0" fill="#38bdf8" filter="blur(5px)"></path>
+        </svg>
+        <div class="meteor top-[15%] left-[30%]" style="animation-delay: 2s;"></div>
+        <div class="meteor top-[50%] right-[10%]" style="animation-delay: 5s;"></div>
+        <div class="meteor top-[5%] right-[40%]" style="animation-delay: 8s;"></div>
+        <svg class="star top-[10%] left-[15%] w-6 h-6" style="animation-duration: 3s;" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+        <svg class="star top-[25%] right-[20%] w-4 h-4" style="animation-duration: 4s; animation-delay: 1s;" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+        <svg class="star top-[65%] left-[8%] w-8 h-8" style="animation-duration: 5s; animation-delay: 2s;" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+        <svg class="star top-[80%] right-[15%] w-5 h-5" style="animation-duration: 3.5s; animation-delay: 0.5s;" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+        <svg class="star top-[40%] left-[50%] w-3 h-3" style="animation-duration: 2s;" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+        <svg class="star top-[15%] right-[45%] w-4 h-4" style="animation-duration: 4.5s; animation-delay: 1.5s;" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+        <div class="absolute bottom-0 left-0 w-full h-[60vh] cloud-bg">
+            <svg viewBox="0 0 1440 320" class="absolute bottom-0 w-full h-full object-cover opacity-30">
+                <path fill="#0f172a" fill-opacity="1" d="M0,192L48,181.3C96,171,192,149,288,154.7C384,160,480,192,576,202.7C672,213,768,203,864,176C960,149,1056,107,1152,101.3C1248,96,1344,128,1392,144L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+            <svg viewBox="0 0 1440 320" class="absolute bottom-[-50px] w-full h-full object-cover opacity-40">
+                <path fill="#020617" fill-opacity="1" d="M0,96L60,122.7C120,149,240,203,360,213.3C480,224,600,192,720,170.7C840,149,960,139,1080,154.7C1200,171,1320,213,1380,234.7L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            </svg>
+        </div>
+    </div>
+    <main class="relative z-10 w-full max-w-4xl px-4 py-12 md:py-20 flex flex-col gap-10">
+       
+        <header class="text-center relative mb-6">
+            <div class="flex justify-center gap-2 mb-4">
+                <span class="px-3 py-1 text-xs rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 font-medium">Website</span>
+                <span class="px-3 py-1 text-xs rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 font-medium">Identity V</span>
+                <span class="px-3 py-1 text-xs rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 font-medium">Design</span>
+            </div>
+
+            <div class="w-full max-w-md mx-auto mb-6 bg-slate-900/80 border border-sky-500/20 rounded-xl p-3 flex items-center justify-between text-xs md:text-sm backdrop-blur-sm">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-slate-300">เวลาทำการ: 09:00 - 23:00 น. 🩵</span>
+                </div>
+                <button class="border border-dashed border-sky-400/60 hover:border-sky-400 px-3 py-1 rounded text-sky-400 transition-colors text-xs">
+                    เช็คคิวงานที่นี่
+                </button>
+            </div>
+
+            <h1 class="font-cinzel text-6xl md:text-8xl font-bold tracking-widest text-gradient-gold drop-shadow-lg mb-2 relative inline-flex items-center justify-center">
+                <svg class="absolute -left-10 md:-left-12 -top-4 md:-top-6 w-12 h-12 md:w-16 md:h-16 fill-astro-gold opacity-80 rotate-[-20deg] drop-shadow-[0_0_15px_rgba(56,189,248,0.6)]" viewBox="0 0 24 24">
+                    <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                </svg>
+                ZENITHY
+            </h1>
+            <h2 class="font-cinzel text-2xl md:text-3xl text-astro-gold mt-1 italic tracking-wider opacity-90">Shop & Design</h2>
+            <div class="mt-6 inline-block bg-[#0f172a]/60 border border-astro-gold/30 rounded-full px-6 py-2 backdrop-blur-md shadow-[0_0_20px_rgba(56,189,248,0.1)]">
+                <p class="font-mitr text-astro-gold/90 text-md md:text-lg tracking-wide">รับทำเว็บไซต์ร้าน / เติมเกม Identity V / ทำป้ายต่าง ๆ</p>
+            </div>
+        </header>
+        <section class="glass-panel p-8 relative overflow-hidden">
+            <svg class="absolute -top-10 -right-10 w-40 h-40 fill-astro-gold/5 rotate-45 pointer-events-none" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+           
+            <div class="flex items-center gap-4 mb-8 justify-center">
+                <svg class="w-6 h-6 fill-astro-gold filter drop-shadow-[0_0_5px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                <h3 class="font-cinzel text-xl md:text-3xl text-astro-gold font-bold tracking-widest">WEBSITE SERVICE</h3>
+                <svg class="w-6 h-6 fill-astro-gold filter drop-shadow-[0_0_5px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+            </div>
+           
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                <div class="flex flex-col items-center justify-center p-6 bg-[#0f172a]/70 rounded-2xl border border-astro-gold/20 hover:border-astro-gold/50 transition-all duration-300 group shadow-lg">
+                    <span class="text-lg text-astro-text mb-2 group-hover:text-astro-gold transition-colors">มีเทมเพลตให้เลือกมากกว่า</span>
+                    <div class="font-cinzel text-4xl text-astro-gold font-bold mb-1 drop-shadow-md">50+ <span class="text-lg font-mitr font-normal text-astro-text">แบบ</span></div>
+                    <span class="text-sm text-astro-text/50 font-light">หลากหลายสไตล์ให้เลือกสรร</span>
+                </div>
+               
+                <div class="flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#1e293b]/90 to-[#0f172a]/80 rounded-2xl border border-astro-gold/40 hover:border-astro-gold transition-all duration-300 relative overflow-hidden group shadow-[0_0_15px_rgba(56,189,248,0.15)] hover:shadow-[0_0_25px_rgba(56,189,248,0.3)]">
+                    <div class="absolute top-0 right-0 bg-astro-gold text-slate-900 text-[10px] md:text-xs px-4 py-1.5 font-bold rounded-bl-xl tracking-wider shadow-md">HOT SERVICES</div>
+                    <span class="text-lg text-astro-text mb-2 group-hover:text-astro-gold transition-colors mt-2">ทำเว็บไซต์ร้านเริ่มต้น</span>
+                    <div class="font-cinzel text-4xl text-astro-gold font-bold mb-1 drop-shadow-md">129 <span class="text-lg font-mitr font-normal text-astro-text">บาท</span></div>
+                    <span class="text-sm text-astro-text/50 font-light">มีทั้งแนวน่ารัก พาสเทล แนวมืด !</span>
+                </div>
+            </div>
+        </section>
+        <section class="glass-panel p-8">
+            <div class="flex items-center gap-4 mb-10 justify-center">
+                <svg class="w-6 h-6 fill-astro-gold filter drop-shadow-[0_0_5px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                <h3 class="font-cinzel text-2xl md:text-3xl text-astro-gold font-bold tracking-widest text-center">DRIVE & PORTFOLIO</h3>
+                <svg class="w-6 h-6 fill-astro-gold filter drop-shadow-[0_0_5px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-center gap-2 mb-6">
+                        <div class="h-[1px] flex-1 bg-astro-gold/30"></div>
+                        <div class="text-center font-cinzel text-xl text-astro-gold tracking-widest font-semibold px-4 drop-shadow-md">PORTFOLIO</div>
+                        <div class="h-[1px] flex-1 bg-astro-gold/30"></div>
+                    </div>
+                   
+                    <a href="https://drive.google.com/drive/folders/1_XMpP9EC2Yqq2-6cYfRn0fy8i9Q6cvoi" target="_blank" class="flex justify-between items-center bg-[#0f172a]/70 px-5 py-4 rounded-xl border border-slate-800 hover:border-sky-400 transition-all group block">
+                        <div class="flex items-center gap-4">
+                            <div class="w-9 h-9 rounded-full bg-sky-500/10 flex items-center justify-center border border-sky-500/30 group-hover:bg-sky-500/20 transition-colors">
+                                <svg class="w-5 h-5 fill-sky-400 svg-glow-pink" viewBox="0 0 24 24">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                                </svg>
+                            </div>
+                            <span class="text-[15px] font-medium tracking-wide text-slate-200 group-hover:text-sky-400 transition-colors">ตัวอย่างงานป้ายร้าน</span>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-astro-gold font-light text-sm">คลิกเปิดลิงก์</span>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/drive/mobile/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr" target="_blank" class="flex justify-between items-center bg-[#0f172a]/70 px-5 py-4 rounded-xl border border-slate-800 hover:border-sky-400 transition-all group block">
+                        <div class="flex items-center gap-4">
+                            <div class="w-9 h-9 rounded-full bg-sky-500/10 flex items-center justify-center border border-sky-500/30 group-hover:bg-sky-500/20 transition-colors">
+                                <svg class="w-5 h-5 fill-sky-400 svg-glow-blue" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                </svg>
+                            </div>
+                            <span class="text-[15px] font-medium tracking-wide text-slate-200 group-hover:text-sky-400 transition-colors">เทมเพลตทั้งหมด</span>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-astro-gold font-light text-sm">คลิกเปิดลิงก์</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-center gap-2 mb-6">
+                        <div class="h-[1px] flex-1 bg-astro-gold/30"></div>
+                        <div class="text-center font-cinzel text-xl text-astro-gold tracking-widest font-semibold px-4 drop-shadow-md">IDENTITY V</div>
+                        <div class="h-[1px] flex-1 bg-astro-gold/30"></div>
+                    </div>
+                   
+                    <a href="https://m.facebook.com/story.php?story_fbid=pfbid0VoVRA4MbGu79CbqBREGD8jcxavv6HzJ2F9jcyvVCUrLxEPSRoFtNQNA44yM83zs9l&id=61586611223621" target="_blank" class="flex justify-between items-center bg-[#0f172a]/70 px-5 py-4 rounded-xl border border-slate-800 hover:border-sky-400 transition-all group block">
+                        <div class="flex items-center gap-4">
+                            <div class="w-9 h-9 rounded-full bg-sky-500/10 flex items-center justify-center border border-sky-500/30 group-hover:bg-sky-500/20 transition-colors">
+                                <svg class="w-5 h-5 fill-sky-400 svg-glow-pink" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                            </div>
+                            <span class="text-[15px] font-medium tracking-wide text-slate-200 group-hover:text-sky-400 transition-colors">เรทเติมกระดุม Identity V</span>
+                        </div>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-astro-gold font-light text-sm">คลิกตรวจสอบ</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="glass-panel p-8 bg-gradient-to-b from-[#0f172a]/80 to-[#020617]/90 border-astro-gold/30 relative overflow-hidden">
+            <svg class="absolute top-4 right-4 w-10 h-10 fill-astro-gold/10 pointer-events-none" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+            <svg class="absolute bottom-4 left-4 w-10 h-10 fill-astro-gold/10 pointer-events-none" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+            <div class="flex flex-col items-center text-center relative z-10">
+                <div class="inline-flex items-center justify-center p-3 rounded-full bg-sky-500/10 border border-sky-500/30 mb-4 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+                    <svg class="w-6 h-6 fill-astro-gold" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
+                    </svg>
+                </div>
+               
+                <h3 class="font-cinzel text-3xl md:text-4xl text-astro-gold font-bold tracking-widest mb-2 drop-shadow-md">SERVICE OVERVIEW</h3>
+                <p class="text-astro-text/80 text-lg mb-8 tracking-wide">สไตล์งานออกแบบของทางร้าน</p>
+                <div class="w-full max-w-xl bg-slate-950/90 rounded-2xl p-8 border border-sky-500/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)] relative">
+                    <div class="mb-2">
+                        <span class="block text-xl md:text-2xl text-astro-text mb-2 tracking-wide font-medium">มีสไตล์หลากหลายตอบโจทย์ลูกค้า</span>
+                        <div class="font-cinzel text-4xl text-astro-gold font-bold drop-shadow-lg mb-2">Creative Layout</div>
+                        <span class="inline-block px-3 py-1 bg-sky-500/10 rounded-full text-xs text-sky-400 font-light tracking-wide border border-sky-500/20">ใส่ใจรายละเอียดทุกจุด</span>
+                    </div>
+                   
+                    <div class="moon-divider"></div>
+                   
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mt-6">
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800">
+                            <span class="block text-sm text-astro-text/70 mb-1">สไตล์</span>
+                            <span class="text-md text-astro-gold font-semibold drop-shadow-sm">แนวน่ารัก</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800">
+                            <span class="block text-sm text-astro-text/70 mb-1">สไตล์</span>
+                            <span class="text-md text-astro-gold font-semibold drop-shadow-sm">พาสเทล</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800">
+                            <span class="block text-sm text-astro-text/70 mb-1">สไตล์</span>
+                            <span class="text-md text-astro-gold font-semibold drop-shadow-sm">แนวมืด / ดาร์ก</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="glass-panel p-8 relative">
+            <h3 class="font-cinzel text-2xl text-astro-gold font-bold tracking-widest mb-6 flex items-center gap-3">
+                <svg class="w-5 h-5 fill-astro-gold filter drop-shadow-[0_0_4px_rgba(56,189,248,0.8)]" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                📍 กฎของร้าน & ข้อตกลง 📍
+            </h3>
+           
+            <ul class="space-y-4 text-[15px] font-light text-astro-text/90 leading-relaxed tracking-wide">
+                <li class="flex items-start gap-3">
+                    <div class="mt-1.5 flex-shrink-0">
+                        <svg class="w-3.5 h-3.5 fill-sky-400" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                    </div>
+                    <p>ถ้าโอนเงินแล้วทางร้าน<span class="text-red-400 font-medium">ไม่คืนเงินทุกกรณี</span>นะคะ</p>
+                </li>
+                <li class="flex items-start gap-3">
+                    <div class="mt-1.5 flex-shrink-0">
+                        <svg class="w-3.5 h-3.5 fill-sky-400" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                    </div>
+                    <p>แจ้งไอดีผิด ทางร้าน<span class="text-red-400 font-medium">ไม่รับผิดชอบทุกกรณี</span></p>
+                </li>
+                <li class="flex items-start gap-3">
+                    <div class="mt-1.5 flex-shrink-0">
+                        <svg class="w-3.5 h-3.5 fill-sky-400" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                    </div>
+                    <p>ผ่อนชำระส่งยอดไม่ครบไม่ต่อเนื่อง <span class="text-red-400 font-medium">ยึดยอดทันที</span></p>
+                </li>
+                <li class="flex items-start gap-3">
+                    <div class="mt-1.5 flex-shrink-0">
+                        <svg class="w-3.5 h-3.5 fill-sky-400" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                    </div>
+                    <p>งานป้ายยกเลิก<span class="text-red-400 font-medium">ไม่คืนเงินทุกกรณี</span></p>
+                </li>
+                <li class="flex items-start gap-3">
+                    <div class="mt-1.5 flex-shrink-0">
+                        <svg class="w-3.5 h-3.5 fill-sky-400" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                    </div>
+                    <p>ส่งงาน/ลูกค้าเช็คงานแล้ว แต่ขอแก้งานทีหลังทางร้าน<span class="text-sky-400 font-medium">คิดจุดละ 20฿</span></p>
+                </li>
+                <li class="flex items-center gap-3 bg-sky-500/5 p-3 rounded-lg border border-sky-500/10 mt-2">
+                    <div class="flex-shrink-0">
+                        <svg class="w-4 h-4 fill-astro-gold filter drop-shadow-[0_0_3px_rgba(56,189,248,0.5)]" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                    </div>
+                    <p class="text-astro-gold/90">เว็บไซต์มีปัญหาแก้ไขให้ฟรี! ถ้าต้องการเปลี่ยนข้อมูลคิดจุดละ <span class="font-bold font-cinzel text-lg ml-1 drop-shadow-md">20</span> ฿</p>
+                </li>
+            </ul>
+        </section>
+        <footer class="mt-8 mb-12 flex flex-col items-center justify-center text-center z-20">
+            <p class="font-cinzel text-astro-text/50 text-sm tracking-widest mb-6 uppercase flex items-center gap-3">
+                <span class="w-8 h-[1px] bg-astro-text/30"></span>
+                Connect with Zenithy
+                <span class="w-8 h-[1px] bg-astro-text/30"></span>
+            </p>
+           
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://www.facebook.com/profile.php?id=61554192600355" target="_blank" rel="noopener noreferrer"
+                   class="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-slate-900/90 border border-sky-500/50 rounded-full text-sky-400 hover:bg-gradient-to-r hover:from-sky-400 hover:to-sky-200 hover:border-transparent hover:text-slate-950 transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] backdrop-blur-sm overflow-hidden w-64">
+                   
+                    <svg class="w-5 h-5 fill-current transition-colors relative z-10" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                   
+                    <span class="font-cinzel font-bold tracking-widest text-sm relative z-10">FACEBOOK SHOP</span>
+                </a>
+
+                <a href="https://line.me/ti/p/LfBtdhlrVa" target="_blank" rel="noopener noreferrer"
+                   class="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-slate-900/90 border border-sky-500/50 rounded-full text-sky-400 hover:bg-gradient-to-r hover:from-sky-400 hover:to-sky-200 hover:border-transparent hover:text-slate-950 transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] backdrop-blur-sm overflow-hidden w-64">
+                   
+                    <svg class="w-5 h-5 fill-current transition-colors relative z-10" viewBox="0 0 24 24">
+                        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.075 9.436-6.965 1.775-1.977 2.547-3.994 2.547-5.978zm-14.024 2.47h-2.131v-4.237c0-.202-.163-.365-.365-.365h-.407c-.202 0-.365.163-.365.365v5.008c0 .202.163.365.365.365h2.902c.202 0 .365-.163.365-.365v-.401c0-.202-.162-.365-.364-.365zm2.744 0h-1.603v-4.237c0-.202-.163-.365-.365-.365h-.407c-.202 0-.365.163-.365.365v5.008c0 .202.163.365.365.365h2.375c.202 0 .365-.163.365-.365v-.401c-.001-.202-.163-.365-.365-.365zm3.763-4.602h-.408c-.134 0-.256.073-.32.191l-1.992 3.655v-3.481c0-.202-.163-.365-.365-.365h-.407c-.202 0-.365.163-.365.365v5.008c0 .202.163.365.365.365h.408c.134 0 .256-.073.319-.191l1.993-3.656v3.482c0 .202.163.365.365.365h.407c.202 0 .365-.163.365-.365v-5.008c0-.202-.163-.365-.365-.365zm4.823 1.348h-1.896v.938h1.66c.202 0 .365.163.365.365v.376c0 .202-.163.365-.365.365h-1.66v.959h1.896c.202 0 .365.163.365.365v.401c0 .202-.163.365-.365.365h-2.668c-.202 0-.365-.163-.365-.365v-5.008c0-.202.163-.365.365-.365h2.668c.202 0 .365.163.365.365v.401c0 .202-.163.365-.365.365z"/>
+                    </svg>
+                   
+                    <span class="font-cinzel font-bold tracking-widest text-sm relative z-10">LINE STORE</span>
+                </a>
+            </div>
+           
+            <div class="mt-16 flex flex-col items-center opacity-40">
+                <svg class="w-6 h-6 fill-astro-text mb-2" viewBox="0 0 24 24"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5L12 0Z"/></svg>
+                <span class="text-xs font-mitr tracking-widest uppercase">Zenithy Design System Theme</span>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

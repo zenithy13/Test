@@ -2,318 +2,299 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>zenithy - Web Design & Identity V</title>
-   
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zenithy | Web Design & Identity V Service</title>
    
     <script src="https://cdn.tailwindcss.com"></script>
    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Mitr', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
                     colors: {
-                        brand: {
-                            light: '#FAFAFA', // พื้นหลังขาวนวล
-                            base: '#18181B',  // ดำ/เทาเข้มมาก
-                            dark: '#09090B',  // ดำสนิท
-                            accent: '#E4E4E7', // เทาอ่อนไฮไลท์
-                            white: 'rgba(255, 255, 255, 0.85)'
-                        }
+                        'blue-main': '#86cbea', // สีฟ้าพาสเทลหลัก
+                        'blue-soft': '#eef7fc', // สีฟ้าอ่อนมาก (พื้นหลัง)
+                        'blue-deep': '#2755ab', // สีน้ำเงินเข้ม (ตัวหนังสือ/โบว์)
+                        'yellow-main': '#fcf096', // สีเหลืองพาสเทลหลัก
+                        'yellow-soft': '#fffce8', // สีเหลืองอ่อน
+                        'yellow-deep': '#eab308', // สีเหลืองเข้มสำหรับตัดเส้น/เงา
+                        'ticket-bg': '#ffffff',
                     }
                 }
             }
         }
     </script>
     <style>
-        /* =========================================
-           บังคับฟอนต์ไม่ให้ใช้ของ iPhone เด็ดขาด
-           ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        /* ใช้ Mitr เป็นฟอนต์หลักของทุก Element */
-        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, textad, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, button, input, textarea, select {
-            font-family: 'Mitr', sans-serif !important;
-            color: #09090B; /* brand-dark */
-        }
-        /* ใช้ Fredoka เฉพาะคลาสที่กำหนด */
-        .font-eng {
-            font-family: 'Fredoka', sans-serif !important;
-        }
-        .font-eng * {
-            font-family: 'Fredoka', sans-serif !important;
-        }
-        /* =========================================
-           ดีไซน์ใหม่: Glassmorphism & Mesh Gradient (ปรับเป็นโทนขาว-ดำ-เทา)
-           ========================================= */
         body {
-            background-color: #FAFAFA;
-            background-image:
-                radial-gradient(at 10% 0%, #E4E4E7 0px, transparent 50%),
-                radial-gradient(at 90% 10%, #A1A1AA 0px, transparent 50%),
-                radial-gradient(at 50% 90%, #F4F4F5 0px, transparent 50%);
-            background-attachment: fixed;
-            min-height: 100vh;
+            background-color: #f1f8fc;
+            background-image: radial-gradient(#86cbea 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
             overflow-x: hidden;
         }
-        /* ซ่อน Scrollbar */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .container-box {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 1.5rem;
+        /* --- Floating SVGs Background --- */
+        .floating-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .svg-float {
+            position: absolute;
+            opacity: 0;
+            animation: float-around infinite linear;
+            animation-fill-mode: both;
+        }
+        .svg-float svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0px 2px 4px rgba(134, 203, 234, 0.4));
+        }
+        @keyframes float-around {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        /* --- Splash Screen Styles --- */
+        #splash-screen {
+            background: linear-gradient(180deg, #eef7fc 0%, #86cbea 100%);
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+            z-index: 60;
+        }
+       
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+        }
+        .cloud-1 { top: 15%; left: 10%; width: 60px; height: 20px; animation: cloud-float 6s ease-in-out infinite; }
+        .cloud-1::before { width: 30px; height: 30px; top: -15px; left: 10px; }
+        .cloud-1::after { width: 20px; height: 20px; top: -10px; left: 35px; }
+        .cloud-2 { top: 40%; left: 80%; width: 80px; height: 25px; animation: cloud-float 8s ease-in-out infinite reverse; }
+        .cloud-2::before { width: 40px; height: 40px; top: -20px; left: 15px; }
+        .cloud-2::after { width: 30px; height: 30px; top: -10px; left: 45px; }
+        @keyframes cloud-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .pulse-btn {
+            animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(134, 203, 234, 0.6); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(134, 203, 234, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(134, 203, 234, 0); }
+        }
+        /* --- Main Ticket Styles --- */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            position: relative;
+            z-index: 10;
+        }
+       
+        .ticket-cutout-left, .ticket-cutout-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: #f1f8fc;
+            background-image: radial-gradient(#86cbea 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .ticket-cutout-left { left: -15px; }
+        .ticket-cutout-right { right: -15px; }
+        .dashed-divider {
+            border-top: 3px dashed #86cbea;
+            position: relative;
+        }
+        /* Stamps */
+        .stamp {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .stamp-p1 {
+            border: 4px solid #86cbea;
+            color: #86cbea;
+            width: 100px;
+            height: 100px;
+            transform: rotate(-15deg);
+        }
+        .stamp-p1::before {
+            content: '\f0fb';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 40px;
+        }
+        .stamp-p2 {
+            border: 4px solid #fcf096;
+            color: #eab308;
+            width: 120px;
+            height: 120px;
+            transform: rotate(25deg);
+            background: transparent;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            line-height: 1.2;
         }
-        /* กล่องสไตล์ Bento / Glass */
-        .bento-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .stamp-p3 {
+            border: 3px solid #2755ab;
+            color: #2755ab;
+            width: 140px;
+            height: 60px;
+            border-radius: 5px;
+            transform: rotate(-5deg);
+            font-size: 14px;
+            text-align: center;
         }
-        /* เมนูแบบ Pill ด้านบน */
-        .floating-nav {
-            position: sticky;
-            top: 1rem;
-            z-index: 50;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 999px;
-            padding: 0.5rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1rem;
+        .barcode {
+            height: 40px;
+            width: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                #86cbea, #86cbea 2px, transparent 2px, transparent 5px,
+                #fcf096 5px, #fcf096 8px, transparent 8px, transparent 11px,
+                #2755ab 11px, #2755ab 13px, transparent 13px, transparent 16px
+            );
         }
-        /* Tab Styles */
-        .tab-btn.active {
-            background-color: #18181B !important;
-            color: #FFFFFF !important;
-            font-weight: 500;
+        .data-label {
+            font-size: 0.7rem;
+            color: #86cbea;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
        
-        .work-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid #E4E4E7;
-            border-radius: 1rem;
-            margin-bottom: 0.5rem;
-            text-decoration: none;
-            transition: all 0.2s;
+        .data-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            color: #2755ab;
+            font-weight: 700;
         }
-        .work-link:active {
-            transform: scale(0.98);
-            background: #E4E4E7;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f8fc; }
+        ::-webkit-scrollbar-thumb { background: #86cbea; border-radius: 4px; }
     </style>
 </head>
-<body>
-    <div class="container-box">
-       
-        <nav class="floating-nav">
-            <span class="font-eng font-semibold text-lg text-brand-dark tracking-wide pl-2">zenithy</span>
-            <div class="flex gap-2 font-eng text-sm">
-                <a href="#work" class="px-3 py-1.5 rounded-full hover:bg-brand-accent/50 transition font-medium">Work</a>
-                <a href="#price" class="px-3 py-1.5 rounded-full hover:bg-brand-accent/50 transition font-medium">Price</a>
-                <a href="#contact" class="px-3 py-1.5 bg-brand-base text-white rounded-full font-medium">Contact</a>
-            </div>
-        </nav>
-        <header class="bento-card text-center relative overflow-hidden">
-            <svg class="absolute -top-10 -right-10 text-brand-accent/40 w-40 h-40 rotate-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-           
-            <div class="relative z-10">
-                <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-[3px] border-white shadow-sm bg-brand-accent/30 flex items-center justify-center">
-                    <img src="IMG_1817.jpeg" alt="Shop Logo" class="w-full h-full object-cover">
-                </div>
-                <div class="inline-flex items-center justify-center gap-2 bg-white/80 px-4 py-1.5 rounded-full text-xs font-medium border border-brand-accent mb-4 text-brand-dark shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    open 9:00-23:00 น. 🩵
-                </div>
-               
-                <h1 class="font-eng text-[2.5rem] leading-[1.1] font-bold text-brand-dark mb-1 tracking-tight">zenithy</h1>
-                <p class="font-eng text-xl text-zinc-500 font-semibold mb-4 tracking-widest uppercase">Store</p>
-               
-                <p class="text-sm leading-relaxed text-brand-dark/80 max-w-[280px] mx-auto">
-                    zenithy รับทำเว็บไซต์ร้าน /<br>
-                    เติมเกม identity v / ทำป้ายต่าง ๆ<br>
-                    ยินดีให้บริการค่ะ
-                </p>
-            </div>
-        </header>
-        <div class="grid grid-cols-2 gap-4">
-           
-            <div class="bento-card flex flex-col justify-center items-center text-center p-5">
-                <p class="font-eng text-xs text-brand-dark/60 font-semibold uppercase tracking-wider mb-1">Start At</p>
-                <div class="flex items-baseline gap-1 mb-2">
-                    <span class="text-4xl font-bold text-brand-dark">129</span>
-                    <span class="text-xs font-medium">.-</span>
-                </div>
-                <p class="text-[10px] leading-tight text-brand-dark/70">ทำเว็บไซต์ร้านค้า<br>ราคาเริ่มต้นสุดคุ้ม</p>
-            </div>
-            <div class="bento-card flex flex-col justify-center p-4">
-                <h3 class="text-sm font-semibold mb-2 flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    สไตล์เว็บ
-                </h3>
-                <ul class="text-[11px] space-y-1.5 text-brand-dark/80">
-                    <li class="flex justify-between"><span>มีเทมเพลตให้เลือก</span><span class="font-medium">50+</span></li>
-                    <li class="flex justify-between"><span>แนวน่ารัก พาสเทล</span><span class="font-medium">✓</span></li>
-                    <li class="flex justify-between border-t border-brand-accent pt-1 mt-1"><span>แนวโทนมืด !</span><span class="font-medium">✓</span></li>
-                </ul>
+<body class="font-sans antialiased min-h-screen relative text-blue-deep">
+    <div id="floating-emojis" class="floating-container"></div>
+    <div id="splash-screen" class="fixed inset-0 flex flex-col items-center justify-center">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="relative z-10 flex flex-col items-center">
+            <div class="w-32 h-32 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-6 border-4 border-[#eef7fc] overflow-hidden">
+                <img src="IMG_0545.jpeg" alt="Shop Logo" class="w-full h-full object-cover hover:scale-110 transition duration-500">
             </div>
            
-            <div class="bento-card col-span-2 bg-gradient-to-br from-zinc-200 to-zinc-100 border-brand-base/20 relative overflow-hidden">
-                <div class="absolute top-3 right-3 bg-brand-dark text-white text-[10px] font-eng font-bold px-2 py-1 rounded-md">SERVICES</div>
-               
-                <h3 class="text-base font-semibold mb-1">บริการของทางร้าน</h3>
-                <p class="text-xl font-bold text-brand-dark mb-3">Identity V & Graphic</p>
-               
-                <div class="grid grid-cols-1 gap-2 text-xs text-brand-dark/80">
-                    <div class="flex items-start gap-2 bg-white/50 p-2 rounded-lg">
-                        <svg class="w-4 h-4 text-brand-dark shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        รับทำเว็บไซต์ร้านค้าดีไซน์สวยงาม
-                    </div>
-                    <div class="flex items-start gap-2 bg-white/50 p-2 rounded-lg">
-                        <svg class="w-4 h-4 text-brand-dark shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        เรทเติมกระดุม Identity V ราคาพิเศษ
-                    </div>
-                    <div class="flex items-start gap-2 bg-white/50 p-2 rounded-lg">
-                        <svg class="w-4 h-4 text-brand-dark shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        รับทำป้ายต่าง ๆ ตามความต้องการ
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="price" class="bento-card">
-            <h3 class="text-sm font-semibold mb-3 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                รายละเอียด & เรทราคาเพิ่มเติม
-            </h3>
-            <div class="space-y-2 text-xs border-l-2 border-brand-base pl-3">
-                <p class="flex justify-between"><span>เว็บไซต์มีปัญหา</span> <span class="font-medium text-green-600">แก้ไขให้ฟรี</span></p>
-                <p class="flex justify-between"><span>ขอแก้งานทีหลัง (หลังเช็คงานแล้ว)</span> <span class="font-medium">จุดละ 20.-</span></p>
-                <p class="flex justify-between text-brand-dark/70 pt-1"><span>ต้องการเปลี่ยนข้อมูลเว็บไซต์ภายหลัง</span> <span class="font-medium">จุดละ 20.-</span></p>
-            </div>
-        </div>
-        <div id="work" class="bento-card p-0 overflow-hidden">
-            <div class="p-5 pb-3 border-b border-white/50">
-                <h2 class="font-eng text-xl font-bold text-brand-dark">Links & Templates</h2>
-                <p class="text-xs text-brand-dark/70 mt-1">คลิกเลือกดูตัวอย่างงานและเทมเพลตของร้าน</p>
-            </div>
+            <h1 class="text-white text-4xl md:text-5xl font-bold tracking-wider mb-2 drop-shadow-md">zenithy</h1>
+            <p class="text-white text-sm md:text-base tracking-widest uppercase italic font-medium mb-4 drop-shadow-sm">Web Design | Identity V | Graphic Design</p>
            
-            <div class="flex p-3 gap-2 bg-brand-light/30">
-                <button onclick="switchTab('bright')" id="btn-bright" class="tab-btn active flex-1 py-2 text-xs font-medium rounded-xl border border-brand-accent text-brand-dark bg-white transition">ตัวอย่างงาน</button>
-                <button onclick="switchTab('dark')" id="btn-dark" class="tab-btn flex-1 py-2 text-xs font-medium rounded-xl border border-brand-accent text-brand-dark bg-white transition">เติมกระดุม</button>
-                <button onclick="switchTab('pastel')" id="btn-pastel" class="tab-btn flex-1 py-2 text-xs font-medium rounded-xl border border-brand-accent text-brand-dark bg-white transition">เทมเพลต</button>
+            <div class="flex text-yellow-main space-x-1 mb-12 text-xl drop-shadow-sm">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
             </div>
-            <div id="tab-bright" class="p-4 max-h-[250px] overflow-y-auto">
-                <a href="https://drive.google.com/drive/folders/1_XMpP9EC2Yqq2-6cYfRn0fy8i9Q6cvoi" target="_blank" class="work-link">
-                    <span class="text-sm">ดูตัวอย่าง <span class="font-semibold ml-1 text-xs bg-zinc-200 px-1.5 py-0.5 rounded">งานป้าย</span></span>
-                    <svg class="w-4 h-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <div id="tab-dark" class="p-4 max-h-[250px] overflow-y-auto hidden">
-                <a href="https://m.facebook.com/story.php?story_fbid=pfbid0VoVRA4MbGu79CbqBREGD8jcxavv6HzJ2F9jcyvVCUrLxEPSRoFtNQNA44yM83zs9l&id=61586611223621" target="_blank" class="work-link">
-                    <span class="text-sm">เช็คเรทราคา <span class="font-semibold ml-1 text-xs bg-zinc-800 text-white px-1.5 py-0.5 rounded">เติมกระดุม</span></span>
-                    <svg class="w-4 h-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <div id="tab-pastel" class="p-4 max-h-[250px] overflow-y-auto hidden">
-                <a href="https://drive.google.com/drive/mobile/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr" target="_blank" class="work-link">
-                    <span class="text-sm">เลือกดู <span class="font-semibold ml-1 text-xs bg-zinc-200 px-1.5 py-0.5 rounded">เทมเพลตทั้งหมด (50+)</span></span>
-                    <svg class="w-4 h-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
+            <button onclick="enterShop()" class="pulse-btn w-20 h-20 bg-white/50 backdrop-blur-md border border-white rounded-full flex items-center justify-center cursor-pointer hover:bg-white/70 transition shadow-lg group">
+                <i class="fa-solid fa-play text-blue-deep text-3xl ml-2 group-hover:scale-110 transition duration-300"></i>
+            </button>
+            <p class="text-white mt-6 text-sm drop-shadow-sm font-medium">กดปุ่มเพื่อเข้าสู่ร้านนะคะ</p>
         </div>
-        <div class="bento-card">
-            <h2 class="text-lg font-semibold mb-4 border-b border-brand-accent pb-2">📍 กฎของร้าน 📍</h2>
-           
-            <div class="space-y-4 relative before:absolute before:inset-0 before:ml-3 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-zinc-400 before:to-transparent">
-               
-                <div class="relative flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-brand-base text-white flex items-center justify-center font-eng text-xs z-10 shrink-0 mt-0.5 shadow-md">1</div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-brand-accent/50 w-full text-xs">
-                        ถ้าโอนเงินแล้วทางร้านไม่คืนเงินทุกกรณีนะคะ
-                    </div>
-                </div>
-               
-                <div class="relative flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-brand-base text-white flex items-center justify-center font-eng text-xs z-10 shrink-0 mt-0.5 shadow-md">2</div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-brand-accent/50 w-full text-xs">
-                        แจ้งไอดีผิดทางร้านไม่รับผิดชอบทุกกรณี โปรดตรวจสอบให้ถูกต้องก่อนส่ง
-                    </div>
-                </div>
-                <div class="relative flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-brand-base text-white flex items-center justify-center font-eng text-xs z-10 shrink-0 mt-0.5 shadow-md">3</div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-brand-accent/50 w-full text-xs">
-                        ผ่อนชำระส่งยอดไม่ครบไม่ต่อเนื่อง ทางร้านขอยึดยอดทันที
-                    </div>
-                </div>
-                <div class="relative flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-brand-base text-white flex items-center justify-center font-eng text-xs z-10 shrink-0 mt-0.5 shadow-md">4</div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-brand-accent/50 w-full text-xs">
-                        งานป้ายหากกดยกเลิกแล้ว จะไม่มีการคืนเงินให้ในทุกกรณี
-                    </div>
-                </div>
-            </div>
-            <div class="mt-5 bg-brand-accent/20 p-3 rounded-xl text-[11px] leading-relaxed">
-                <p class="font-semibold mb-1 text-brand-dark">เงื่อนไขเพิ่มเติมสำหรับการแก้ไขงานเว็บไซต์:</p>
-                <ul class="list-disc pl-4 space-y-1 text-brand-dark/80 marker:text-brand-base">
-                    <li>เว็บไซต์มีปัญหาแก้ไขให้ฟรีไม่มีค่าใช้จ่าย</li>
-                    <li>หากส่งงาน/ตรวจสอบเสร็จสิ้นแล้ว ต้องการแก้ไขภายหลัง คิดจุดละ 20฿</li>
-                    <li>หากต้องการเปลี่ยนข้อมูลในเว็บไซต์ภายหลัง คิดจุดละ 20฿</li>
-                </ul>
-            </div>
-        </div>
-        <div id="contact" class="grid grid-cols-2 gap-3 mb-6">
-            <a href="https://www.facebook.com/profile.php?id=61586611223621" target="_blank" class="bento-card p-3 flex flex-col items-center justify-center gap-2 hover:bg-white/80 transition text-brand-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                <span class="font-eng text-xs font-medium">Facebook</span>
-            </a>
-            <a href="https://line.me/ti/p/LfBtdhlrVa" target="_blank" class="bento-card p-3 flex flex-col items-center justify-center gap-2 hover:bg-white/80 transition text-brand-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                <span class="font-eng text-xs font-medium">Line</span>
-            </a>
-        </div>
-        <footer class="text-center text-[10px] text-brand-dark/50 font-eng pb-6">
-            &copy; 2026 zenithy Store. All Rights Reserved.
-        </footer>
     </div>
-    <script>
-        function switchTab(tabId) {
-            // ซ่อนเนื้อหา Tab ทั้งหมด
-            document.getElementById('tab-bright').classList.add('hidden');
-            document.getElementById('tab-dark').classList.add('hidden');
-            document.getElementById('tab-pastel').classList.add('hidden');
+    <div id="main-content" class="py-10 px-4 w-full flex justify-center">
+       
+        <div class="w-full max-w-3xl bg-ticket-bg rounded-3xl shadow-2xl overflow-hidden relative border-2 border-blue-100">
            
-            // ล้างสถานะ Active ของปุ่มทั้งหมด
-            document.getElementById('btn-bright').classList.remove('active');
-            document.getElementById('btn-dark').classList.remove('active');
-            document.getElementById('btn-pastel').classList.remove('active');
-           
-            // แสดงเนื้อหาและเพิ่มสถานะ Active ให้ปุ่มที่เลือก
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            document.getElementById('btn-' + tabId).classList.add('active');
-        }
-    </script>
-</body>
-</html>
+            <div class="bg-blue-main p-6 flex items-center justify-between text-white relative overflow-hidden">
+                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(white 2px, transparent 2px); background-size: 15px 15px;"></div>
+               
+                <div class="flex items-center gap-4 relative z-10">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-main shadow-sm overflow-hidden border-2 border-yellow-main">
+                        <img src="IMG_0545.jpeg" alt="Shop Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-widest drop-shadow-sm uppercase">Boarding Pass</h2>
+                        <p class="text-sm uppercase tracking-wider opacity-90">Passenger Name</p>
+                        <p class="font-mono text-xl drop-shadow-sm text-yellow-main">ZENITHY</p>
+                    </div>
+                </div>
+                <div class="text-right hidden sm:block relative z-10">
+                    <h1 class="text-3xl font-extrabold italic drop-shadow-sm text-yellow-main">zenithy</h1>
+                    <p class="text-xs uppercase opacity-90">Web Design & Full Service</p>
+                </div>
+            </div>
+            <div class="p-8 relative bg-white">
+                <div class="stamp stamp-p1 top-4 right-10"></div>
+                <div class="stamp stamp-p3 bottom-10 left-10"><i class="fa-solid fa-check-circle mr-2"></i>VISA<br>APPROVED</div>
+                <div class="text-center mb-8 relative z-10">
+                    <p class="text-blue-main mb-2 font-medium"><i class="fa-solid fa-heart text-yellow-deep"></i> ยินดีต้อนรับเข้าสู่ร้าน zenithy นะคะ <i class="fa-solid fa-heart text-yellow-deep"></i></p>
+                    <h3 class="text-2xl md:text-3xl font-bold text-blue-deep mb-2">zenithy รับทำเว็บไซต์ร้าน / เติมเกม identity v / ทำป้ายต่าง ๆ</h3>
+                    <p class="text-blue-main text-sm font-medium">ยินดีให้บริการด้วยใจจริงค่ะ 🩵</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div><p class="data-label">From</p><p class="data-value">IDEA</p></div>
+                    <div><p class="data-label">To</p><p class="data-value">SERVICE</p></div>
+                    <div><p class="data-label">Gate</p><p class="data-value text-yellow-deep">OPEN</p></div>
+                    <div><p class="data-label">Status (Time)</p><p class="data-value text-blue-deep">9:00-23:00</p></div>
+                </div>
+                
+                <div class="bg-yellow-soft p-5 rounded-2xl border-2 border-yellow-main shadow-sm relative z-10">
+                    <h4 class="font-bold text-blue-deep mb-3"><i class="fa-solid fa-star text-blue-main mr-2"></i> รายละเอียดการรันคิวงาน</h4>
+                    <ul class="space-y-2 text-blue-deep text-sm">
+                        <li><i class="fa-solid fa-circle-info text-yellow-deep mr-2 text-xs"></i> <strong>รันงานตามคิว:</strong> หากในช่วงเวลานั้นติดคิวงานอื่นอยู่ ทางร้านจะแจ้งให้ทราบก่อนเริ่มงานค่ะ</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dashed-divider">
+                <div class="ticket-cutout-left"></div>
+                <div class="ticket-cutout-right"></div>
+            </div>
+            <div class="p-8 relative bg-white">
+                <div class="stamp stamp-p2 top-20 right-5"><i class="fa-solid fa-plane-departure mb-1"></i>DEP<br><span class="text-sm text-blue-main">ZENITHY</span></div>
+                <div class="grid md:grid-cols-2 gap-8 relative z-10">
+                    <div>
+                        <h4 class="font-bold text-blue-deep mb-4"><i class="fa-solid fa-palette text-yellow-deep mr-2"></i> ตัวอย่างงาน & เทมเพลต</h4>
+                        <div class="space-y-4">
+                            <div class="bg-blue-soft p-4 rounded-2xl border-2 border-blue-main">
+                                <p class="text-xs font-bold text-blue-deep uppercase mb-3">งานเว็บไซต์ร้าน</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <a href="https://drive.google.com/drive/mobile/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr" target="_blank" class="px-3 py-1 bg-blue-deep text-white text-xs rounded-full hover:bg-yellow-deep transition shadow-sm font-medium"><i class="fa-solid fa-folder-open mr-1"></i> ดูเทมเพลตมากกว่า 50+ แบบ</a>
+                                </div>
+                                <p class="text-[11px] text-blue-deep/70 mt-2 italic">* มีทั้งแนวน่ารัก พาสเทล และแนวมืด !</p>
+                            </div>
+                            <div class="

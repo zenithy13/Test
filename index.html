@@ -3,298 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>zenithy | Web Design & Identity V Service</title>
-   
-    <script src="https://cdn.tailwindcss.com"></script>
-   
+    <title>zenithy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Mitr', 'sans-serif'],
-                        mono: ['Space Mono', 'monospace'],
-                    },
-                    colors: {
-                        'blue-main': '#86cbea', // สีฟ้าพาสเทลหลัก
-                        'blue-soft': '#eef7fc', // สีฟ้าอ่อนมาก (พื้นหลัง)
-                        'blue-deep': '#2755ab', // สีน้ำเงินเข้ม (ตัวหนังสือ/โบว์)
-                        'yellow-main': '#fcf096', // สีเหลืองพาสเทลหลัก
-                        'yellow-soft': '#fffce8', // สีเหลืองอ่อน
-                        'yellow-deep': '#eab308', // สีเหลืองเข้มสำหรับตัดเส้น/เงา
-                        'ticket-bg': '#ffffff',
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* --- Color Variables (ปรับให้เข้ากับโทนสีฟ้าตามที่ระบุในคำโปรย 🩵) --- */
+        :root {
+            --bg-main: #E8F5E9;       /* สีพื้นหลังหลัก เขียว/ฟ้าอ่อนสบายตา */
+            --bg-sidebar: #00BCD4;    /* สีแถบด้านข้าง ฟ้า Cyan สดใส */
+            --bg-card: #FFFFFF;       /* สีพื้นหลังการ์ด */
+            --banner-color: #B5E57A;  /* สีแบนเนอร์ เขียวอ่อนสดใส */
+            --banner-pattern: #E0F7FA;
+           
+            --text-dark: #1A3038;     /* สีข้อความหลัก */
+            --text-light: #546E7A;    /* สีข้อความรอง */
+            --text-white: #FFFFFF;    
+           
+            --accent-pink: #FF8A8A;   /* สีแดง/ชมพูตกแต่ง */
+            --accent-yellow: #FFD54F; /* สีเหลืองตกแต่ง */
+            --accent-green: #4CAF50;  /* สีเขียวปุ่ม */
+            --accent-teal: #0097A7;   /* สีปุ่ม/ไอคอน */
+           
+            --border-radius-lg: 30px;
+            --border-radius-md: 20px;
+            --border-radius-sm: 12px;
+           
+            --shadow-card: 0 10px 30px rgba(0, 188, 212, 0.08);
+            --shadow-hover: 0 15px 35px rgba(0, 188, 212, 0.15);
+        }
+        /* --- Global Reset & Typography --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            background-color: #f1f8fc;
-            background-image: radial-gradient(#86cbea 1.2px, transparent 1.2px);
-            background-size: 24px 24px;
+            font-family: 'Mitr', sans-serif !important;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.6;
             overflow-x: hidden;
+            background-image: radial-gradient(var(--banner-pattern) 2px, transparent 2px);
+            background-size: 30px 30px;
         }
-        /* --- Floating SVGs Background --- */
-        .floating-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+        h1, h2, h3, h4, h5, .english-text {
+            font-family: 'Fredoka', 'Mitr', sans-serif !important;
         }
-        .svg-float {
-            position: absolute;
-            opacity: 0;
-            animation: float-around infinite linear;
-            animation-fill-mode: both;
-        }
-        .svg-float svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0px 2px 4px rgba(134, 203, 234, 0.4));
-        }
-        @keyframes float-around {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-        /* --- Splash Screen Styles --- */
-        #splash-screen {
-            background: linear-gradient(180deg, #eef7fc 0%, #86cbea 100%);
-            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
-            z-index: 60;
-        }
-       
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 50px;
-        }
-        .cloud::before, .cloud::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 50%;
-        }
-        .cloud-1 { top: 15%; left: 10%; width: 60px; height: 20px; animation: cloud-float 6s ease-in-out infinite; }
-        .cloud-1::before { width: 30px; height: 30px; top: -15px; left: 10px; }
-        .cloud-1::after { width: 20px; height: 20px; top: -10px; left: 35px; }
-        .cloud-2 { top: 40%; left: 80%; width: 80px; height: 25px; animation: cloud-float 8s ease-in-out infinite reverse; }
-        .cloud-2::before { width: 40px; height: 40px; top: -20px; left: 15px; }
-        .cloud-2::after { width: 30px; height: 30px; top: -10px; left: 45px; }
-        @keyframes cloud-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .pulse-btn {
-            animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-        }
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(134, 203, 234, 0.6); }
-            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(134, 203, 234, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(134, 203, 234, 0); }
-        }
-        /* --- Main Ticket Styles --- */
-        #main-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 1s ease-in;
-            position: relative;
-            z-index: 10;
-        }
-       
-        .ticket-cutout-left, .ticket-cutout-right {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            background-color: #f1f8fc;
-            background-image: radial-gradient(#86cbea 1.2px, transparent 1.2px);
-            background-size: 24px 24px;
-            border-radius: 50%;
-            z-index: 10;
-        }
-        .ticket-cutout-left { left: -15px; }
-        .ticket-cutout-right { right: -15px; }
-        .dashed-divider {
-            border-top: 3px dashed #86cbea;
-            position: relative;
-        }
-        /* Stamps */
-        .stamp {
-            position: absolute;
-            border-radius: 50%;
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { cursor: pointer; border: none; font-family: inherit; }
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--bg-sidebar); border-radius: 10px; }
+        /* --- Layout Structure --- */
+        .app-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            min-height: 100vh;
+            max-width: 1200px; /* ปรับขนาดให้พอดีเมื่อไม่มี Sidebar */
+            margin: 0 auto;
+            position: relative;
+        }
+        /* --- Gimmick: Floating Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+       
+        .bg-shape {
+            position: fixed; /* fixed เพื่อให้อยู่ตลอดเวลาเลื่อนจอ */
             z-index: 0;
-            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
             pointer-events: none;
         }
-        .stamp-p1 {
-            border: 4px solid #86cbea;
-            color: #86cbea;
-            width: 100px;
-            height: 100px;
-            transform: rotate(-15deg);
-        }
-        .stamp-p1::before {
-            content: '\f0fb';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            font-size: 40px;
-        }
-        .stamp-p2 {
-            border: 4px solid #fcf096;
-            color: #eab308;
-            width: 120px;
-            height: 120px;
-            transform: rotate(25deg);
-            background: transparent;
-            border-radius: 10px;
+        .shape-1 { top: 10%; left: 2%; width: 80px; height: 80px; fill: var(--accent-pink); opacity: 0.5; animation-delay: 0s; }
+        .shape-2 { top: 50%; right: 2%; width: 60px; height: 60px; fill: var(--accent-yellow); opacity: 0.5; animation-delay: 1.5s; }
+        .shape-3 { bottom: 20%; left: 5%; width: 50px; height: 50px; fill: var(--bg-sidebar); opacity: 0.3; animation-delay: 3s; }
+        /* --- Main Content Area --- */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
-            line-height: 1.2;
-        }
-        .stamp-p3 {
-            border: 3px solid #2755ab;
-            color: #2755ab;
-            width: 140px;
-            height: 60px;
-            border-radius: 5px;
-            transform: rotate(-5deg);
-            font-size: 14px;
-            text-align: center;
-        }
-        .barcode {
-            height: 40px;
             width: 100%;
-            background: repeating-linear-gradient(
-                90deg,
-                #86cbea, #86cbea 2px, transparent 2px, transparent 5px,
-                #fcf096 5px, #fcf096 8px, transparent 8px, transparent 11px,
-                #2755ab 11px, #2755ab 13px, transparent 13px, transparent 16px
-            );
+            position: relative;
+            z-index: 1;
         }
-        .data-label {
-            font-size: 0.7rem;
-            color: #86cbea;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1px;
+        /* --- Banner --- */
+        .banner {
+            height: 250px;
+            background-color: #E0F7FA; /* เปลี่ยนเป็นสีเรียบๆ สบายตา */
+            border-radius: var(--border-radius-lg);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 40px;
+            background-image: url('IMG_1821.jpeg'); /* ใส่รูป Banner ตามที่แนบ */
+            background-size: cover;
+            background-position: center;
         }
+        /* ปรับให้อ่านข้อความบน Banner ง่ายขึ้นหากรูปเข้มหรือจางเกินไป */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.4);
+            z-index: 0;
+        }
+        /* SVG ตกแต่งใน Banner */
+        .banner-svg-decor {
+            position: absolute;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        .bsd-1 { top: 30px; left: 10%; width: 80px; height: 80px; fill: var(--accent-pink); }
+        .bsd-2 { bottom: -20px; left: 30%; width: 120px; height: 120px; fill: var(--accent-yellow); animation-delay: 1.5s; }
+        /* ขยับหัวใจมาทางซ้าย ไม่ให้บังชื่อร้านที่อยู่ฝั่งขวา */
+        .bsd-3 { top: 50px; right: 65%; width: 50px; height: 50px; fill: var(--bg-sidebar); animation-delay: 2.5s; opacity: 0.4; }
        
-        .data-value {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.1rem;
-            color: #2755ab;
-            font-weight: 700;
+        .banner-text {
+            position: relative;
+            z-index: 1;
+            text-align: right;
+            color: var(--text-dark);
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f8fc; }
-        ::-webkit-scrollbar-thumb { background: #86cbea; border-radius: 4px; }
-    </style>
-</head>
-<body class="font-sans antialiased min-h-screen relative text-blue-deep">
-    <div id="floating-emojis" class="floating-container"></div>
-    <div id="splash-screen" class="fixed inset-0 flex flex-col items-center justify-center">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="relative z-10 flex flex-col items-center">
-            <div class="w-32 h-32 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-6 border-4 border-[#eef7fc] overflow-hidden">
-                <img src="IMG_0545.jpeg" alt="Shop Logo" class="w-full h-full object-cover hover:scale-110 transition duration-500">
-            </div>
-           
-            <h1 class="text-white text-4xl md:text-5xl font-bold tracking-wider mb-2 drop-shadow-md">zenithy</h1>
-            <p class="text-white text-sm md:text-base tracking-widest uppercase italic font-medium mb-4 drop-shadow-sm">Web Design | Identity V | Graphic Design</p>
-           
-            <div class="flex text-yellow-main space-x-1 mb-12 text-xl drop-shadow-sm">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </div>
-            <button onclick="enterShop()" class="pulse-btn w-20 h-20 bg-white/50 backdrop-blur-md border border-white rounded-full flex items-center justify-center cursor-pointer hover:bg-white/70 transition shadow-lg group">
-                <i class="fa-solid fa-play text-blue-deep text-3xl ml-2 group-hover:scale-110 transition duration-300"></i>
-            </button>
-            <p class="text-white mt-6 text-sm drop-shadow-sm font-medium">กดปุ่มเพื่อเข้าสู่ร้านนะคะ</p>
-        </div>
-    </div>
-    <div id="main-content" class="py-10 px-4 w-full flex justify-center">
+        .banner-text h1 {
+            font-size: 48px;
+            color: var(--accent-teal);
+            text-shadow: 2px 2px 0px #fff;
+            letter-spacing: 2px;
+        }
+        .banner-text p {
+            font-size: 18px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.85);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        /* --- Dashboard Grid (Profile + Cards) --- */
+        .dashboard-grid {
+            display: flex;
+            gap: 30px;
+            margin-top: -80px; /* Pull up to overlap banner like ref */
+            position: relative;
+            z-index: 10;
+        }
+        /* --- Left Column (Profile Card) --- */
+        .left-col {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .profile-card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 40px 20px 30px;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+            position: relative;
+        }
+        /* Gimmick: Floating Premium Badge (ส่วนสำคัญที่ต้องคงไว้ 100%) */
+        .badge-premium-new {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-yellow);
+            color: var(--text-dark);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 10px rgba(255, 213, 79, 0.4);
+            animation: float 4s ease-in-out infinite;
+        }
+        .badge-premium-new svg { width: 12px; height: 12px; fill: currentColor; }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--text-white); /* พื้นหลังโลโก้สีขาวเรียบๆ */
+            border: 6px solid var(--bg-card);
+            margin: -90px auto 15px; /* Overlap effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        /* ตัวไอคอนโลโก้หลัก */
+        .profile-avatar .main-avatar {
+            width: 65px;
+            height: 65px;
+            fill: var(--bg-sidebar); /* สีตัดกับพื้นหลัง */
+            position: relative;
+            z-index: 5;
+        }
+        /* SVG ตกแต่งรอบๆ โลโก้ */
+        .logo-decor {
+            position: absolute;
+            z-index: 10;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        .ld-1 { top: -10px; right: 0px; width: 28px; height: 28px; fill: var(--accent-yellow); animation-delay: 0s; }
+        .ld-2 { bottom: 10px; left: -15px; width: 22px; height: 22px; fill: var(--accent-pink); animation-delay: 0.8s; }
+        .ld-3 { top: 30px; left: -10px; width: 18px; height: 18px; fill: #4CAF50; animation-delay: 1.6s; }
        
-        <div class="w-full max-w-3xl bg-ticket-bg rounded-3xl shadow-2xl overflow-hidden relative border-2 border-blue-100">
-           
-            <div class="bg-blue-main p-6 flex items-center justify-between text-white relative overflow-hidden">
-                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(white 2px, transparent 2px); background-size: 15px 15px;"></div>
-               
-                <div class="flex items-center gap-4 relative z-10">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-main shadow-sm overflow-hidden border-2 border-yellow-main">
-                        <img src="IMG_0545.jpeg" alt="Shop Logo" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold tracking-widest drop-shadow-sm uppercase">Boarding Pass</h2>
-                        <p class="text-sm uppercase tracking-wider opacity-90">Passenger Name</p>
-                        <p class="font-mono text-xl drop-shadow-sm text-yellow-main">ZENITHY</p>
-                    </div>
-                </div>
-                <div class="text-right hidden sm:block relative z-10">
-                    <h1 class="text-3xl font-extrabold italic drop-shadow-sm text-yellow-main">zenithy</h1>
-                    <p class="text-xs uppercase opacity-90">Web Design & Full Service</p>
-                </div>
-            </div>
-            <div class="p-8 relative bg-white">
-                <div class="stamp stamp-p1 top-4 right-10"></div>
-                <div class="stamp stamp-p3 bottom-10 left-10"><i class="fa-solid fa-check-circle mr-2"></i>VISA<br>APPROVED</div>
-                <div class="text-center mb-8 relative z-10">
-                    <p class="text-blue-main mb-2 font-medium"><i class="fa-solid fa-heart text-yellow-deep"></i> ยินดีต้อนรับเข้าสู่ร้าน zenithy นะคะ <i class="fa-solid fa-heart text-yellow-deep"></i></p>
-                    <h3 class="text-2xl md:text-3xl font-bold text-blue-deep mb-2">zenithy รับทำเว็บไซต์ร้าน / เติมเกม identity v / ทำป้ายต่าง ๆ</h3>
-                    <p class="text-blue-main text-sm font-medium">ยินดีให้บริการด้วยใจจริงค่ะ 🩵</p>
-                </div>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div><p class="data-label">From</p><p class="data-value">IDEA</p></div>
-                    <div><p class="data-label">To</p><p class="data-value">SERVICE</p></div>
-                    <div><p class="data-label">Gate</p><p class="data-value text-yellow-deep">OPEN</p></div>
-                    <div><p class="data-label">Status (Time)</p><p class="data-value text-blue-deep">9:00-23:00</p></div>
-                </div>
-                
-                <div class="bg-yellow-soft p-5 rounded-2xl border-2 border-yellow-main shadow-sm relative z-10">
-                    <h4 class="font-bold text-blue-deep mb-3"><i class="fa-solid fa-star text-blue-main mr-2"></i> รายละเอียดการรันคิวงาน</h4>
-                    <ul class="space-y-2 text-blue-deep text-sm">
-                        <li><i class="fa-solid fa-circle-info text-yellow-deep mr-2 text-xs"></i> <strong>รันงานตามคิว:</strong> หากในช่วงเวลานั้นติดคิวงานอื่นอยู่ ทางร้านจะแจ้งให้ทราบก่อนเริ่มงานค่ะ</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="dashed-divider">
-                <div class="ticket-cutout-left"></div>
-                <div class="ticket-cutout-right"></div>
-            </div>
-            <div class="p-8 relative bg-white">
-                <div class="stamp stamp-p2 top-20 right-5"><i class="fa-solid fa-plane-departure mb-1"></i>DEP<br><span class="text-sm text-blue-main">ZENITHY</span></div>
-                <div class="grid md:grid-cols-2 gap-8 relative z-10">
-                    <div>
-                        <h4 class="font-bold text-blue-deep mb-4"><i class="fa-solid fa-palette text-yellow-deep mr-2"></i> ตัวอย่างงาน & เทมเพลต</h4>
-                        <div class="space-y-4">
-                            <div class="bg-blue-soft p-4 rounded-2xl border-2 border-blue-main">
-                                <p class="text-xs font-bold text-blue-deep uppercase mb-3">งานเว็บไซต์ร้าน</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <a href="https://drive.google.com/drive/mobile/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr" target="_blank" class="px-3 py-1 bg-blue-deep text-white text-xs rounded-full hover:bg-yellow-deep transition shadow-sm font-medium"><i class="fa-solid fa-folder-open mr-1"></i> ดูเทมเพลตมากกว่า 50+ แบบ</a>
-                                </div>
-                                <p class="text-[11px] text-blue-deep/70 mt-2 italic">* มีทั้งแนวน่ารัก พาสเทล และแนวมืด !</p>
-                            </div>
-                            <div class="
+        /* Status Bar (ส่วนสำคัญที่ต้องคงไว้ 100%) */
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            background-color: var(--accent-green);
+            border: 3px solid var(--bg-card);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+            right: 15px;
+        }
+        .profile-name {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        .profile-title {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+        }
+        .stat-item h4 { font-size: 18px; color: var(--text-dark); }
+        .stat-item p { font-size: 12px; color: var(--text-light); }
+        /* --- Quick Nav in Profile --- */
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #eee;
+        }
+        .quick-nav-item {
+            padding: 8px 14px;
+            background-color: var(--bg-main);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .quick-nav-item:hover {
+            background-color: var(--bg-sidebar);
+            color: var(--text-white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 188, 212, 0.2);
+        }
+        .quick-nav-item svg { width: 14px; height: 14px; fill: currentColor; }
+        /* Contact Buttons (Minimal, Theme Colors) */
+        .contact-group {
+            display: flex;
+            justify-

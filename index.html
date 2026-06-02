@@ -2,199 +2,169 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>zenithy - Web Design & Identity V</title>
-   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenithy - Welcome to my shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
-   
-    <script src="https://cdn.tailwindcss.com"></script>
-   
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            light: '#FAFAFA', // พื้นหลังขาวนวล
-                            base: '#18181B',  // ดำ/เทาเข้มมาก
-                            dark: '#09090B',  // ดำสนิท
-                            accent: '#E4E4E7', // เทาอ่อนไฮไลท์
-                            white: 'rgba(255, 255, 255, 0.85)'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&family=Slackey&display=swap" rel="stylesheet">
     <style>
-        /* =========================================
-           บังคับฟอนต์ไม่ให้ใช้ของ iPhone เด็ดขาด
-           ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+        :root {
+            /* ปรับโทนสีเป็น ขาว ดำ และตัดด้วยฟ้าพาสเทลตามบรีฟ */
+            --color-pink-bg: #f4f4f5;
+            --color-pink-dot: #e4e4e7;
+            --color-pink-dark: #18181b;
+            --color-pink-light: #a5f3fc; /* สีฟ้าพาสเทล 🩵 */
+            --color-brown-dark: #09090b;
+            --color-brown-light: #52525b;
         }
-        /* ใช้ Mitr เป็นฟอนต์หลักของทุก Element */
-        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, textad, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, button, input, textarea, select {
-            font-family: 'Mitr', sans-serif !important;
-            color: #09090B; /* brand-dark */
-        }
-        /* ใช้ Fredoka เฉพาะคลาสที่กำหนด */
-        .font-eng {
-            font-family: 'Fredoka', sans-serif !important;
-        }
-        .font-eng * {
-            font-family: 'Fredoka', sans-serif !important;
-        }
-        /* =========================================
-           ดีไซน์ใหม่: Glassmorphism & Mesh Gradient (ปรับเป็นโทนขาว-ดำ-เทา)
-           ========================================= */
+        /* ใช้ฟอนต์ Mitr สำหรับเนื้อหาทั่วไป */
         body {
-            background-color: #FAFAFA;
-            background-image:
-                radial-gradient(at 10% 0%, #E4E4E7 0px, transparent 50%),
-                radial-gradient(at 90% 10%, #A1A1AA 0px, transparent 50%),
-                radial-gradient(at 50% 90%, #F4F4F5 0px, transparent 50%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Mitr', sans-serif;
+            background-color: var(--color-pink-bg);
+            background-image: radial-gradient(var(--color-pink-dot) 15%, transparent 16%), radial-gradient(var(--color-pink-dot) 15%, transparent 16%);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+            color: var(--color-brown-dark);
+            scroll-behavior: smooth;
         }
-        /* ซ่อน Scrollbar */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .container-box {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        /* ฟอนต์ส่วนหัว Slackey (เพิ่ม Mitr เป็น Fallback สำหรับภาษาไทย) */
+        .font-slackey {
+            font-family: 'Slackey', 'Mitr', cursive;
         }
-        /* กล่องสไตล์ Bento / Glass */
-        .bento-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .text-shadow-cute {
+            text-shadow: 2px 2px 0px #fff, 3px 3px 0px var(--color-pink-light);
         }
-        /* เมนูแบบ Pill ด้านบน */
-        .floating-nav {
-            position: sticky;
-            top: 1rem;
-            z-index: 50;
-            background: rgba(255, 255, 255, 0.85);
+        /* Clean Container แทนแบบเก่า */
+        .clean-box {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 999px;
-            padding: 0.5rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1rem;
+            border-radius: 40px;
+            box-shadow: 0 10px 40px rgba(24, 24, 27, 0.08);
         }
-        /* Tab Styles */
-        .tab-btn.active {
-            background-color: #18181B !important;
-            color: #FFFFFF !important;
-            font-weight: 500;
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--color-pink-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--color-pink-dark); border-radius: 10px; }
+        .modal-enter { animation: modalFadeIn 0.3s ease-out forwards; }
+        .modal-exit { animation: modalFadeOut 0.2s ease-in forwards; }
        
-        .work-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 1rem;
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid #E4E4E7;
-            border-radius: 1rem;
-            margin-bottom: 0.5rem;
-            text-decoration: none;
-            transition: all 0.2s;
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-        .work-link:active {
-            transform: scale(0.98);
-            background: #E4E4E7;
+        @keyframes modalFadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        /* Slider Animations */
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide {
+            min-width: 100%;
         }
     </style>
 </head>
-<body>
-    <div class="container-box">
+<body class="min-h-screen pb-12">
+    <div id="menu-overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="side-menu" class="fixed inset-y-0 left-0 w-64 bg-white/95 backdrop-blur-md shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out border-r border-zinc-200">
+        <div class="p-5 h-full flex flex-col">
+            <div class="flex justify-between items-center mb-6 border-b border-zinc-100 pb-4">
+                <span class="font-slackey text-xl text-[#18181b] text-shadow-cute">MENU</span>
+                <button onclick="toggleMenu()" class="text-zinc-400 hover:text-zinc-600 bg-zinc-50 p-1 rounded-full transition">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+           
+            <div class="space-y-3 font-medium text-[#09090b] flex-1">
+                <a href="#services" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition text-[15px]">
+                    <span class="text-[#18181b]"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6-6.2-4.5h7.6z"/></svg></span> บริการของเรา
+                </a>
+                <a href="#portfolio" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition text-[15px]">
+                    <span class="text-[#18181b]"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span> ตัวอย่างงาน
+                </a>
+                <a href="#pricing" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition text-[15px]">
+                    <span class="text-[#18181b]"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg></span> Price List
+                </a>
+                <a href="#course" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition text-[15px]">
+                    <span class="text-[#18181b]"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span> เทมเพลตทั้งหมด
+                </a>
+                <a href="#goodnote" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition text-[15px]">
+                    <span class="text-[#18181b]"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg></span> เรทเติมกระดุม
+                </a>
+                <a href="#contact" onclick="toggleMenu()" class="flex items-center gap-3 p-3 hover:bg-zinc-50 rounded-xl transition text-[15px]">
+                    <span class="text-[#18181b]"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span> ติดต่อเรา
+                </a>
+            </div>
+           
+            <div class="mt-auto border-t border-zinc-100 pt-4 text-center">
+                <p class="font-slackey text-xs text-zinc-400">ZENITHY SHOP</p>
+            </div>
+        </div>
+    </div>
+    <div class="w-full bg-white/90 backdrop-blur-md border-b border-zinc-200 py-3 px-4 flex justify-between items-center text-[10px] sm:text-xs font-slackey text-zinc-800 font-medium uppercase tracking-wider sticky top-0 z-30 shadow-sm">
+        <div class="flex items-center gap-2 sm:gap-3">
+            <button onclick="toggleMenu()" class="p-1.5 hover:bg-zinc-100 rounded-md text-zinc-800 transition-colors focus:outline-none cursor-pointer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <span>ZENITHY ></span>
+            <span class="text-zinc-400 hidden sm:inline">></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                NO COPY
+            </span>
+            <span class="hidden sm:inline border-l border-zinc-200 pl-4">DO NOT STEAL</span>
+        </div>
+    </div>
+    <main class="max-w-2xl mx-auto mt-6 sm:mt-10 px-4 relative z-0">
        
-        <nav class="floating-nav">
-            <span class="font-eng font-semibold text-lg text-brand-dark tracking-wide pl-2">zenithy</span>
-            <div class="flex gap-2 font-eng text-sm">
-                <a href="#work" class="px-3 py-1.5 rounded-full hover:bg-brand-accent/50 transition font-medium">Work</a>
-                <a href="#price" class="px-3 py-1.5 rounded-full hover:bg-brand-accent/50 transition font-medium">Price</a>
-                <a href="#contact" class="px-3 py-1.5 bg-brand-base text-white rounded-full font-medium">Contact</a>
-            </div>
-        </nav>
-        <header class="bento-card text-center relative overflow-hidden">
-            <svg class="absolute -top-10 -right-10 text-brand-accent/40 w-40 h-40 rotate-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <div class="clean-box p-6 sm:p-10 z-0 border border-white">
            
-            <div class="relative z-10">
-                <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-[3px] border-white shadow-sm bg-brand-accent/30 flex items-center justify-center">
-                    <img src="IMG_1817.jpeg" alt="Shop Logo" class="w-full h-full object-cover">
-                </div>
-                <div class="inline-flex items-center justify-center gap-2 bg-white/80 px-4 py-1.5 rounded-full text-xs font-medium border border-brand-accent mb-4 text-brand-dark shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    open 9:00-23:00 น. 🩵
-                </div>
-               
-                <h1 class="font-eng text-[2.5rem] leading-[1.1] font-bold text-brand-dark mb-1 tracking-tight">zenithy</h1>
-                <p class="font-eng text-xl text-zinc-500 font-semibold mb-4 tracking-widest uppercase">Store</p>
-               
-                <p class="text-sm leading-relaxed text-brand-dark/80 max-w-[280px] mx-auto">
-                    zenithy รับทำเว็บไซต์ร้าน /<br>
-                    เติมเกม identity v / ทำป้ายต่าง ๆ<br>
-                    ยินดีให้บริการค่ะ
-                </p>
-            </div>
-        </header>
-        <div class="grid grid-cols-2 gap-4">
-           
-            <div class="bento-card flex flex-col justify-center items-center text-center p-5">
-                <p class="font-eng text-xs text-brand-dark/60 font-semibold uppercase tracking-wider mb-1">Start At</p>
-                <div class="flex items-baseline gap-1 mb-2">
-                    <span class="text-4xl font-bold text-brand-dark">129</span>
-                    <span class="text-xs font-medium">.-</span>
-                </div>
-                <p class="text-[10px] leading-tight text-brand-dark/70">ทำเว็บไซต์ร้านค้า<br>ราคาเริ่มต้นสุดคุ้ม</p>
-            </div>
-            <div class="bento-card flex flex-col justify-center p-4">
-                <h3 class="text-sm font-semibold mb-2 flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    สไตล์เว็บ
-                </h3>
-                <ul class="text-[11px] space-y-1.5 text-brand-dark/80">
-                    <li class="flex justify-between"><span>มีเทมเพลตให้เลือก</span><span class="font-medium">50+</span></li>
-                    <li class="flex justify-between"><span>แนวน่ารัก พาสเทล</span><span class="font-medium">✓</span></li>
-                    <li class="flex justify-between border-t border-brand-accent pt-1 mt-1"><span>แนวโทนมืด !</span><span class="font-medium">✓</span></li>
-                </ul>
-            </div>
-           
-            <div class="bento-card col-span-2 bg-gradient-to-br from-zinc-200 to-zinc-100 border-brand-base/20 relative overflow-hidden">
-                <div class="absolute top-3 right-3 bg-brand-dark text-white text-[10px] font-eng font-bold px-2 py-1 rounded-md">SERVICES</div>
-               
-                <h3 class="text-base font-semibold mb-1">บริการของทางร้าน</h3>
-                <p class="text-xl font-bold text-brand-dark mb-3">Identity V & Graphic</p>
-               
-                <div class="grid grid-cols-1 gap-2 text-xs text-brand-dark/80">
-                    <div class="flex items-start gap-2 bg-white/50 p-2 rounded-lg">
-                        <svg class="w-4 h-4 text-brand-dark shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        รับทำเว็บไซต์ร้านค้าดีไซน์สวยงาม
+            <div class="text-center mb-8 relative flex flex-col items-center">
+                <svg class="absolute top-2 left-2 sm:left-10 w-6 h-6 text-[#18181b] animate-pulse" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C12 0 12 10 22 12C12 14 12 24 12 24C12 24 12 14 2 12C12 10 12 0 12 0Z" />
+                </svg>
+                <svg class="absolute top-6 right-4 sm:right-12 w-5 h-5 text-zinc-400 animate-bounce" style="animation-duration: 2.5s;" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6-6.2-4.5h7.6z"/>
+                </svg>
+                <svg class="absolute bottom-4 left-8 sm:left-16 w-4 h-4 text-zinc-400 animate-pulse" style="animation-delay: 1s;" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C12 0 12 10 22 12C12 14 12 24 12 24C12 24 12 14 2 12C12 10 12 0 12 0Z" />
+                </svg>
+                <svg class="absolute bottom-8 right-8 sm:right-16 w-4 h-4 text-[#18181b]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6-6.2-4.5h7.6z"/>
+                </svg>
+                <div class="relative w-28 h-28 sm:w-32 sm:h-32 mb-2 group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-zinc-400 to-zinc-200 rounded-full opacity-40 blur-md group-hover:opacity-60 transition duration-300"></div>
+                    <img src="IMG_1817.jpeg" alt="Profile Picture" class="relative w-full h-full object-cover rounded-full border-4 border-white shadow-md z-10 transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute -bottom-1 -right-1 bg-white rounded-full p-1.5 shadow-sm z-20 border border-zinc-100">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#18181b"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                     </div>
-                    <div class="flex items-start gap-2 bg-white/50 p-2 rounded-lg">
-                        <svg class="w-4 h-4 text-brand-dark shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        เรทเติมกระดุม Identity V ราคาพิเศษ
+                </div>
+                <h1 class="font-slackey text-4xl sm:text-5xl font-bold text-[#18181b] text-shadow-cute mb-3 tracking-wide mt-3">zenithy</h1>
+                <h2 class="font-slackey text-sm sm:text-base text-[#09090b] bg-zinc-100 inline-block px-6 py-1.5 rounded-full shadow-sm">open 9:00-23:00 น. 🩵</h2>
+            </div>
+            <div class="mb-10 relative rounded-3xl overflow-hidden shadow-md group">
+                <div class="slider-track" id="slider-track">
+                    <div class="slide bg-gradient-to-r from-zinc-900 to-zinc-700 h-40 sm:h-56 flex flex-col items-center justify-center text-center p-4">
+                        <span class="font-slackey text-2xl sm:text-3xl text-white mb-2">รับทำเว็บไซต์ร้าน</span>
+                        <span class="text-sm text-zinc-200 bg-white/10 px-4 py-1 rounded-full">เริ่มต้นเพียง 129.-</span>
                     </div>
-                    <div class="flex items-start gap-2 bg-white/50 p-2 rounded-lg">
-                        <svg class="w-4 h-4 text-brand-dark shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none
+                    <div class="slide bg-gradient-to-r from-zinc-200 to-zinc-100 h-40 sm:h-56 flex flex-col items-center justify-center text-center p-4">
+                        <span class="font-slackey text-2xl sm:text-3xl text-[#09090b] mb-2">เติมเกม identity v</span>
+                        <span class="text-sm text-zinc-600 bg-white/50 px-4 py-1 rounded-full">เรทกระดุมสุดคุ้ม</span>
+                    </div>
+                    <div class="slide bg-gradient-to-r from-cyan-100 to-zinc-100 h-40 sm:h-56 flex flex-col items-center justify-center text-center p-4">
+                        <span class="font-slackey text-2xl sm:text-3xl text-[#09090b] mb-2">รับทำป้ายต่าง ๆ</span>
+                        <span class="text-sm text-zinc-600 bg-white/50 px-4 py-1 rounded-full">เริ่มต้นเพียง 50.-</span>
+                    </div>
+                </div>
+               
+                <button onclick="prevSlide()" class

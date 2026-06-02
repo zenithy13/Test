@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenithy - Welcome to my shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 🍓 ปรับโทนสีใหม่ให้เข้ากับรูป Pink Julie (ชมพูละมุน-ครีมพีช) 🍓 */
+            --primary-bg: #ffe4eb; /* พื้นหลังสีชมพูพาสเทลอ่อน */
+            --box-bg: rgba(255, 255, 255, 0.45);
+            --white: #ffffff;
+            --pink-accent: #ff9eaa; /* สีชมพูบลัชออนจากโบว์ */
+            --blue-accent: #ffcdb2; /* สีครีมพีชละมุน */
+            --text-dark: #8c5a65; /* สีน้ำตาลอมแดงจากดวงตา */
+            --text-light: #b07d89; /* สีน้ำตาลชมพู */
+        }
+        body {
+            background-color: var(--primary-bg);
+            color: var(--white);
+            background-image: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.4) 0%, transparent 50%);
+            overflow-x: hidden;
+        }
+        .font-mitr { font-family: 'Mitr', sans-serif; }
+        .font-eng { font-family: 'Nunito', sans-serif; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--primary-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--pink-accent); border-radius: 10px; }
+        /* Patterns and Decorative Elements */
+        .checker-bg {
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0.2)),
+                linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0.2));
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .right-dash-border {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            border-right: 3px dashed rgba(255, 158, 170, 0.3);
+            z-index: 0;
+        }
+        .glass-panel {
+            background: var(--box-bg);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+        .white-window {
+            background: var(--white);
+            border: 3px solid var(--white);
+            border-radius: 1.25rem;
+            color: var(--text-dark);
+            box-shadow: 0 8px 20px rgba(140, 90, 101, 0.08);
+            position: relative;
+        }
+        .window-header {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid #ffdce3;
+            background-color: #fffafb;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .pill-tag {
+            border-radius: 9999px;
+            padding: 0.25rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+            color: white;
+            display: inline-block;
+        }
+        .bg-pink-tag { background-color: var(--pink-accent); }
+        .bg-blue-tag { background-color: var(--blue-accent); color: #8c5a65; }
+        .bg-purple-tag { background-color: #ffb5c6; }
+        .star-icon {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="%23FFF" xmlns="http://www.w3.org/2000/svg"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>') no-repeat center;
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Emojis Background Animations */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+            50% { opacity: 0.8; transform: scale(1.2) rotate(5deg); }
+        }
+        .animate-twinkle { animation: twinkle 4s ease-in-out infinite; }
+        .delay-100 { animation-delay: 1s; }
+        .delay-300 { animation-delay: 2s; }
+        .delay-700 { animation-delay: 3s; }
+        /* Avatar styling to match image */
+        .avatar-frame {
+            background-color: #fff0f3;
+            border: 4px solid white;
+            border-radius: 1rem;
+            padding: 0.5rem;
+            position: relative;
+        }
+        .link-item {
+            display: inline-block;
+            background: #fff0f3;
+            color: var(--text-light);
+            padding: 0.4rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            margin-right: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: 1px solid #ffdce3;
+        }
+        .link-item:hover {
+            background: var(--pink-accent);
+            color: white;
+            transform: scale(1.02);
+        }
+        .contact-btn {
+            background-color: var(--pink-accent);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+            border: 2px solid white;
+            text-decoration: none;
+        }
+        .contact-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="font-mitr min-h-screen pb-20">
+    <div class="right-dash-border hidden md:block"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-32 checker-bg hidden md:block opacity-30 z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+       
+        <div class="absolute top-[10%] left-[5%] w-8 h-8 md:w-10 md:h-10 animate-twinkle opacity-60 text-[#ffffff]">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+        </div>
+        <div class="absolute top-[25%] left-[10%] w-10 h-10 floating delay-300 opacity-70 text-white hidden md:block">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 19c2.48 0 4.5-2.02 4.5-4.5S19.98 10 17.5 10c-.34 0-.67.04-1 .11C15.68 7.18 13.06 5 10 5c-3.87 0-7 3.13-7 7 0 .58.08 1.14.21 1.68C1.35 14.23 0 15.96 0 18c0 2.76 2.24 5 5 5h12.5z"/></svg>
+        </div>
+        <div class="absolute top-[45%] left-[8%] w-12 h-12 floating delay-700 opacity-80 text-[#ffffff]">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12,22C7,22 3,18 3,13C3,9.5 5,6.5 8,5V3C8,1.9 8.9,1 10,1C11.1,1 12,1.9 12,3V3.5C12,3.5 12,3.5 12,3.5V3C12,1.9 12.9,1 14,1C15.1,1 16,1.9 16,3V5C19,6.5 21,9.5 21,13C21,18 17,22 12,22M9,13A1.5,1.5 0 0,0 7.5,14.5A1.5,1.5 0 0,0 9,16A1.5,1.5 0 0,0 10.5,14.5A1.5,1.5 0 0,0 9,13M15,13A1.5,1.5 0 0,0 13.5,14.5A1.5,1.5 0 0,0 15,16A1.5,1.5 0 0,0 16.5,14.5A1.5,1.5 0 0,0 15,13Z"/></svg>
+        </div>
+        <div class="absolute top-[65%] left-[15%] w-6 h-6 animate-twinkle delay-100 opacity-60 text-white hidden md:block">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="absolute top-[85%] left-[5%] w-9 h-9 floating opacity-70 text-[#ffb5c6]">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A3,3 0 0,0 9,5C9,7.5 12,10 12,10C12,10 15,7.5 15,5A3,3 0 0,0 12,2M12,22A3,3 0 0,0 15,19C15,16.5 12,14 12,14C12,14 9,16.5 9,19A3,3 0 0,0 12,22M4.5,7.5A3,3 0 0,0 2,10.2C2,12.5 5.5,13.5 5.5,13.5C5.5,13.5 7.5,10.5 7,8A3,3 0 0,0 4.5,7.5M19.5,7.5A3,3 0 0,0 17,8C16.5,10.5 18.5,13.5 18.5,13.5C18.5,13.5 22,12.5 22,10.2A3,3 0 0,0 19.5,7.5M4.5,16.5A3,3 0 0,0 7,16C7.5,13.5 5.5,10.5 5.5,10.5C5.5,10.5 2,11.5 2,13.8A3,3 0 0,0 4.5,16.5M19.5,16.5A3,3 0 0,0 22,13.8C22,11.5 18.5,10.5 18.5,10.5C18.5,10.5 16.5,13.5 17,16A3,3 0 0,0 19.5,16.5Z"/></svg>
+        </div>
+       
+        <div class="absolute top-[15%] right-[8%] w-10 h-10 md:w-12 md:h-12 floating opacity-70 text-[#ffb5c6]">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A3,3 0 0,0 9,5C9,7.5 12,10 12,10C12,10 15,7.5 15,5A3,3 0 0,0 12,2M12,22A3,3 0 0,0 15,19C15,16.5 12,14 12,14C12,14 9,16.5 9,19A3,3 0 0,0 12,22M4.5,7.5A3,3 0 0,0 2,10.2C2,12.5 5.5,13.5 5.5,13.5C5.5,13.5 7.5,10.5 7,8A3,3 0 0,0 4.5,7.5M19.5,7.5A3,3 0 0,0 17,8C16.5,10.5 18.5,13.5 18.5,13.5C18.5,13.5 22,12.5 22,10.2A3,3 0 0,0 19.5,7.5M4.5,16.5A3,3 0 0,0 7,16C7.5,13.5 5.5,10.5 5.5,10.5C5.5,10.5 2,11.5 2,13.8A3,3 0 0,0 4.5,16.5M19.5,16.5A3,3 0 0,0 22,13.8C22,11.5 18.5,10.5 18.5,10.5C18.5,10.5 16.5,13.5 17,16A3,3 0 0,0 19.5,16.5Z"/></svg>
+        </div>
+        <div class="absolute top-[30%] right-[15%] w-9 h-9 animate-twinkle delay-100 opacity-70 text-[#ffb5c6] hidden md:block">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5,4C20.5,3.9 19.3,4 18.3,4.5C17,5.1 16,6.1 15.2,7.2C14.2,5.8 12.6,4.5 10.9,4.4C9.6,4.3 8.3,4.7 7.5,5.6C6.1,7.1 6,9.6 7,11.4L3.1,19.3C2.9,19.6 3,20.1 3.4,20.4C3.8,20.6 4.3,20.4 4.5,20.1L9,13C10,13.8 11.2,14.4 12.5,14.4C13.8,14.4 15,13.8 16,13L20.5,20.1C20.7,20.4 21.2,20.6 21.6,20.4C22,20.1 22.1,19.6 21.9,19.3L18,11.4C19,9.6 18.9,7.1 17.5,5.6C18.4,5 19.6,4.7 20.7,5.1C21.1,5.2 21.6,5 21.7,4.6C21.9,4.3 21.7,3.8 21.5,4Z"/></svg>
+        </div>
+        <div class="absolute top-[55%] right-[10%] w-8 h-8 md:w-10 md:h-10 floating delay-300 opacity-60 text-[#ffffff]">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+        </div>
+        <div class="absolute top-[75%] right-[18%] w-10 h-10 animate-twinkle opacity-60 text-white hidden md:block">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 19c2.48 0 4.5-2.02 4.5-4.5S19.98 10 17.5 10c-.34 0-.67.04-1 .11C15.68 7.18 13.06 5 10 5c-3.87 0-7 3.13-7 7 0 .58.08 1.14.21 1.68C1.35 14.23 0 15.96 0 18c0 2.76 2.24 5 5 5h12.5z"/></svg>
+        </div>
+        <div class="absolute top-[90%] right-[8%] w-7 h-7 floating delay-700 opacity-60 text-[#ffb5c6]">
+            <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="absolute top-[20%] left-[25%] text-sm animate-twinkle delay-700 opacity-50 text-[#ff8fa3] hidden md:block">✦</div>
+        <div class="absolute top-[15%] right-[25%] text-sm animate-twinkle delay-300 opacity-50 text-[#ff8fa3] hidden md:block">✦</div>
+        <div class="absolute bottom-[20%] left-[30%] text-sm animate-twinkle delay-100 opacity-50 text-[#ff8fa3] hidden md:block">✦</div>
+        <div class="absolute bottom-[15%] right-[30%] text-sm floating opacity-50 text-[#ff8fa3] hidden md:block">✦</div>
+    </div>
+    <main class="max-w-4xl mx-auto px-4 pt-12 relative z-10">
+       
+        <div class="text-center mb-8 relative">
+            <div class="inline-flex flex-col items-center justify-center mb-2">
+                <div class="bg-pink-tag text-white font-eng text-2xl font-black w-12 h-12 rounded-2xl flex items-center justify-center mb-2 shadow-sm rotate-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+            </div>
+           
+            <h1 class="font-eng text-4xl md:text-5xl font-black tracking-wider text-[#8c5a65] drop-shadow-sm mb-4 flex items-center justify-center gap-3">
+                <svg class="w-8 h-8 text-[#ffffff]" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                ZENITHY
+            </h1>
+           
+            <div class="flex flex-wrap justify-center gap-3 font-eng">
+                <span class="pill-tag bg-pink-tag">welcome to my shop</span>
+                <span class="pill-tag bg-purple-tag">website maker</span>
+                <span class="pill-tag bg-blue-tag">identity v topup</span>
+            </div>
+        </div>
+        <div class="glass-panel p-4 md:p-8 relative">
+            <div class="star-icon top-4 left-4"></div>
+            <div class="star-icon bottom-4 right-4"></div>
+            <div class="flex flex-col md:flex-row gap-6 mb-8 relative z-10">
+               
+                <div class="shrink-0 mx-auto md:mx-0 floating">
+                    <div class="avatar-frame w-48 h-56 flex flex-col items-center justify-center">
+                        <div class="absolute -right-4 top-1/2 bg-white text-gray-400 p-1 rounded-full shadow-md">
+                            <svg class="w-6 h-6 text-pink-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <img src="IMG_1813.jpeg" alt="Profile" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                </div>
+                <div class="flex-1 text-[#8c5a65]">
+                    <p class="font-eng font-bold text-lg text-[#b07d89] uppercase tracking-widest mb-1">Hello! I'm</p>
+                    <div class="flex items-center gap-3 mb-4">
+                        <h2 class="font-eng text-4xl font-black text-[#8c5a65]">Zenithy</h2>
+                        <span class="border-2 border-[#ff9eaa] text-[#ff9eaa] rounded-full px-3 py-1 text-xs font-bold font-eng">OWNER</span>
+                    </div>
+                   
+                    <div class="border-l-4 border-[#ff9eaa] pl-4 py-1 mb-6">
+                        <p class="text-lg leading-relaxed font-mitr font-medium">
+                            zenithy รับทำเว็บไซต์ร้าน / เติมเกมidentity v / ทำป้ายต่าง ๆ<br>
+                            open 9:00-23:00 น.🩵 ไม่จำกัดข้อมูลในการใส่ อยากให้แสดงอะไรบนหน้าเว็บ ใส่มาได้เลย ทางเราออกแบบจัดวางให้ฟรี!
+                        </p>
+                    </div>
+                    <div class="white-window max-w-sm mt-4 p-4 transform md:translate-x-10 hover:translate-y-1 transition-transform">
+                        <div class="space-y-2 font-mitr text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-[#ffcdb2] rounded-sm"></div> <b>SERVICES:</b></span>
+                                <span>Websites & Games</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-[#ff9eaa] rounded-sm"></div> <b>BASE PRICE:</b></span>
+                                <span>129 THB</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[#b07d89]">
+                                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-gray-200 rounded-sm"></div> <b>STATUS:</b></span>
+                                <span>Open 09:00-23:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+               
+                <div class="space-y-6">
+                   
+                    <div class="white-window">
+                        <div class="window-header">
+                            <div class="flex gap-1.5 mr-auto">
+                                <div class="w-3 h-3 rounded-full bg-[#ffb5c6]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#ffcdb2]"></div>
+                                <div class="w-3 h-3 rounded-full bg-pink-200"></div>
+                            </div>
+                            <span class="font-eng font-bold text-[#e07a8f] tracking-widest text-xs">WEBSITE SERVICES</span>
+                        </div>
+                        <div class="p-5 font-mitr text-sm">
+                            <h3 class="font-bold text-lg mb-2 text-[#b86b7d] flex items-center">ทำเว็บไซต์ร้าน เริ่มต้น 129.- <svg class="w-5 h-5 text-[#e07a8f] ml-2" viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></h3>
+                            <ul class="space-y-2 mb-4 list-none">
+                                <li class="flex items-center gap-2"><span class="text-[#ff9eaa]">✦</span> มีเทมเพลตให้เลือกมากกว่า 50+</li>
+                                <li class="flex items-center gap-2"><span class="text-[#ff9eaa]">✦</span> มีทั้งแนวน่ารัก พาสเทล แนวมืด !</li>
+                                <li class="flex items-center gap-2"><span class="text-[#ff9eaa]">✦</span> ออกแบบจัดวางระบบหน้าบ้านสวยงาม</li>
+                                <li class="flex items-center gap-2"><span class="text-[#ff9eaa]">✦</span> ปรับเปลี่ยนข้อมูลได้ตามต้องการ</li>
+                            </ul>
+                           
+                            <h3 class="font-bold text-lg mb-2 text-[#b86b7d] mt-4 border-t border-dashed border-pink-200 pt-4 flex items-center">บริการอื่นๆ ของร้าน <svg class="w-5 h-5 text-[#ff9eaa] ml-2" viewBox="0 0 24 24" fill="currentColor"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg></h3>
+                            <p class="text-xs text-[#b07d89] mb-2">(เรทบริการอื่นๆ เพิ่มเติมและระบบของทางร้าน)</p>
+                            <ul class="space-y-1 mb-4">
+                                <li class="flex justify-between items-center bg-[#fff0f3] p-2 rounded border border-[#ffdce3]">
+                                    <span>เติมเกม identity v</span> <span class="font-bold text-[#b86b7d]">เช็คเรทกระดุมได้</span>
+                                </li>
+                                <li class="flex justify-between items-center bg-[#fff0f3] p-2 rounded border border-[#ffdce3]">
+                                    <span>ออกแบบทำป้ายต่างๆ</span> <span class="font-bold text-[#b86b7d]">เริ่มต้นราคามิตรภาพ</span>
+                                </li>
+                                <li class="flex justify-between items-center bg-[#fff0f3] p-2 rounded border border-[#ffdce3]">
+                                    <span>ออกแบบเว็บร้านค้า</span> <span class="font-bold text-[#b86b7d]">เทมเพลต 50+</span>
+                                </li>
+                            </ul>
+                           
+                            <div class="bg-[#ffe8d6] text-[#b5734c] p-3 rounded-xl mb-3 text-xs border border-[#ffcdb2]">
+                                <strong>เงื่อนไขเว็บไซต์:</strong> เว็บไซต์มีปัญหาแก้ไขให้ฟรี! <br>
+                                หากระบบปกติดีแล้วแต่ลูกค้าต้องการเปลี่ยนหรือแก้ไขข้อมูลในภายหลัง <br>
+                                ทางร้านจะคิดค่าบริการเพิ่มเติม <b>จุดละ 20฿</b>
+                            </div>
+                            <p class="text-[10px] text-[#b07d89] text-center">*เปิดบริการทุกวัน ตั้งแต่เวลา 9:00 - 23:00 น.</p>
+                        </div>
+                    </div>
+                    <div class="white-window">
+                        <div class="window-header">
+                            <div class="flex gap-1.5 mr-auto">
+                                <div class="w-3 h-3 rounded-full bg-[#fbbce0]"></div>
+                                <div class="w-3 h-3 rounded-full border border-[#ffdce3] bg-white"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#fbbce0]"></div>
+                            </div>
+                            <span class="font-eng font-bold text-[#ff8fa3] tracking-widest text-xs">PORTFOLIO</span>
+                        </div>
+                        <div class="p-5 font-mitr text-sm">
+                            <p class="font-bold mb-3 text-[#b86b7d] flex items-center"><svg class="w-5 h-5 text-yellow-500 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> รวมลิงก์ผลงานและเทมเพลต</p>
+                           
+                            <div class="mb-4">
+                                <span class="bg-[#ffe8d6] text-[#b5734c] px-2 py-1 rounded text-xs font-bold mb-2 inline-block">ผลงานป้าย</span>
+                                <div class="flex flex-wrap gap-1">
+                                    <a href="https://drive.google.com/drive/folders/1_XMpP9EC2Yqq2-6cYfRn0fy8i9Q6cvoi" target="_blank" class="link-item">ตัวอย่างงานป้ายคลิกที่นี่</a>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <span class="bg-[#8c5a65] text-white px-2 py-1 rounded text-xs font-bold mb-2 inline-block">เติมเกม Identity V</span>
+                                <div class="flex flex-wrap gap-1">
+                                    <a href="https://m.facebook.com/story.php?story_fbid=pfbid0VoVRA4MbGu79CbqBREGD8jcxavv6HzJ2F9jcyvVCUrLxEPSRoFtNQNA44yM83zs9l&id=61586611223621" target="_blank" class="link-item">เช็คเรทเติมกระดุมคลิกที่นี่</a>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="bg-[#ffb5c6] text-white px-2 py-1 rounded text-xs font-bold mb-2 inline-block">เทมเพลตเว็บไซต์</span>
+                                <div class="flex flex-wrap gap-1">
+                                    <a href="https://drive.google.com/drive/mobile/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr" target="_blank" class="link-item">ดูเทมเพลตทั้งหมดคลิกที่นี่</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                   
+                    <div class="white-window">
+                        <div class="window-header">
+                            <div class="flex gap-1.5 mr-auto">
+                                <div class="w-3 h-3 rounded-full bg-pink-300"></div>
+                                <div class="w-3 h-3 rounded-full bg-rose-300"></div>
+                                <div class="w-3 h-3 rounded-full bg-orange-200"></div>
+                            </div>
+                            <span class="font-eng font-bold text-[#b86b7d] tracking-widest text-xs">IDENTITY V SERVICES</span>
+                        </div>
+                        <div class="p-5 font-mitr text-sm">
+                            <p class="text-center font-bold text-lg mb-4 bg-[#fff0f4] text-[#b86b7d] py-2 rounded-xl flex justify-center items-center"><svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zM11 18.49c-1.15-.4-2.75-.99-4.5-.99-1.3 0-2.85.2-4 .5V7.4c1.15-.4 2.75-.99 4.5-.99 1.3
